@@ -1,24 +1,24 @@
-pipeline{
+pipeline {
     agent any
-    tool{
+    tools {
         maven "MAVEN_HOME"
     }
-    stages
-    {
-        stage("Checkout"){
-        step{
-            git ''
+    stages {
+        stage("Checkout") {
+            steps {
+                // Provide the Git repository URL here
+                git ''
+            }
         }
+        stage("Build") {
+            steps {
+                sh 'mvn clean install'
+            }
         }
-        stage("Build"){
-        step{
-            sh 'mvn clean install'
-    }
-    }
-        stage("Deploy")
-        {
-            step{
+        stage("Deploy") {
+            steps {
                 deploy adapters: [tomcat9(credentialsId: 'devops', path: '', url: 'http://localhost:7080/manager/html')], contextPath: 'mavenpipeline', war: '**/*.war'
             }
+        }
+    }
 }
-}}
