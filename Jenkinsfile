@@ -6,8 +6,7 @@ pipeline {
     stages {
         stage("Checkout") {
             steps {
-                // Provide the Git repository URL here
-                git ''
+                git 'https://github.com/tahseent/my-webapp.git'
             }
         }
         stage("Build") {
